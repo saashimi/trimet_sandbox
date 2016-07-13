@@ -8,25 +8,13 @@
  *
  * Main module of the application.
  */
-angular
-  .module('trimappApp', [
-    'ngAnimate',
-    'ngResource',
-    'ngRoute',
-    'ngSanitize',
-    'ngTouch'
-  ])
+angular.module('trimappApp', ['ngAnimate', 'ngResource', 'ngRoute', 'ngSanitize', 'ngTouch', 'trimappApp.map'])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
-        controller: 'MainCtrl',
+        controller: 'mapCtrl',
         controllerAs: 'main'
-      })
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl',
-        controllerAs: 'about'
       })
       .otherwise({
         redirectTo: '/'

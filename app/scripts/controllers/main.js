@@ -1,3 +1,4 @@
+
 'use strict';
 
 /**
@@ -8,7 +9,7 @@
  * Controller of the trimappApp
  */
 angular.module('trimappApp')
-  .controller('MainCtrl', function () {
+  .controller('mapCtrl', function () {
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
