@@ -9,7 +9,8 @@
  * Controller of the trimappApp
  */
 angular.module('trimappApp')
-  .controller('mapCtrl', function () {
+  .controller('someOtherCtrl', function () {
+    console.log('we\'re in main.js.');
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',

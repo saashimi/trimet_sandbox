@@ -3,6 +3,13 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 @import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
 // endbower
 
+html, body, #content {
+    height: 97%;
+}
+
 #map-canvas {
+    margin: 0;
+    padding: 0;
     height: 100%;
+    width: 100%;
 }
