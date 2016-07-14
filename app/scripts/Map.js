@@ -8,7 +8,7 @@ angular.module('trimappApp.map', []).controller('mapCtrl',['$scope', function ($
         zoom: 13
     });
     console.log('map initialized!');
-    console.log($scope.map)
+    console.log($scope.map);
   };
   initialize(); 
 }
