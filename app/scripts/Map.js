@@ -20,7 +20,7 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
   loadRoutes = function() {
     $scope.layers = $scope.config.layers;
     $rootScope.map = $scope.map;
-      setTimeout(function() { // cooperative multitasking... pause the javascript execution
+      setTimeout(function() { // cooperative multitasking... pause the javascript execution. For now, removing this still makes the whole thing work.
         var k, len2, ref1, results;
         ref1 = $scope.layers;
         results = [];
@@ -31,8 +31,7 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
             request = $http.get('./geojson/' + l.geojsonFilename);
             //                v-----request.then() is a promise
             return request.then(function(result) {
-              console.log('we made it! load this layer:', l.geojsonFilename); // loads all geojson data one at a time 
-              l.geojsonFilename = result.data;
+              l.geojsonFilename = result.data;  // loads all geojson data one at a time 
               initializeLayerData(l);
             });
         })(l)); // immediately pushes geojson objects to results
