@@ -18,6 +18,7 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
     $scope.map.data.loadGeoJson(request);
   };
   
-  initialize(), loadRoutes(); 
+  initialize();
+  loadRoutes();
 }
 ]);

@@ -457,9 +457,9 @@
                 },       
                                     
                 ]
-            }
+            };
             
-        }
+        });
        
-}).call(this)
+}).call(this);
 //Emulating config.js from psu-campus-map
