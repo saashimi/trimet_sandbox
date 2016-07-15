@@ -5,7 +5,7 @@ Iterates through a given directory and adds attributes based on geojson filename
 
 def formatter(rte_input, filename):
     bracket0 = "{\n"
-    prop = "  id: 'rte_{0}'\n  geojsonFilename: '{1}'".format(rte_input, filename)
+    prop = "  id: 'rte_{0}',\n  geojsonFilename: '{1}'".format(rte_input, filename)
     bracket1 = "\n},\n"
     print bracket0, prop, bracket1
 
