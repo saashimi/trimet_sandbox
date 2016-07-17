@@ -1,4 +1,4 @@
-import os,json
+import os, json
 from pprint import pprint
 """
 Iterates through a given directory and adds attributes based on geojson filename.

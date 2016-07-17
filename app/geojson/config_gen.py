@@ -1,13 +1,21 @@
-import os
+import os,json
+from pprint import pprint
 """
 Iterates through a given directory and adds attributes based on geojson filename.
 """
 
 def formatter(rte_input, filename):
+    """
     bracket0 = "{\n"
     prop = "  id: 'rte_{0}',\n  geojsonFilename: '{1}'".format(rte_input, filename)
     bracket1 = "\n},\n"
     print bracket0, prop, bracket1
+    """
+    d = {}
+    d['rte'] = int(rte_input)
+    d['geojsonFilename'] = filename
+    pprint(d, depth=3)
+    print ','
 
 for i in os.listdir(os.getcwd()):
     if len(i) == 26:

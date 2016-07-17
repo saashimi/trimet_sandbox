@@ -5,460 +5,191 @@
             var config = 
             {
                 layers: [
+                  {'geojsonFilename': 'tm_routes_rte__1.geojson', 'rte': 1}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__10.geojson', 'rte': 10}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__100.geojson', 'rte': 100}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__11.geojson', 'rte': 11}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__119.geojson', 'rte': 119}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__12.geojson', 'rte': 12}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__14.geojson', 'rte': 14}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__15.geojson', 'rte': 15}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__152.geojson', 'rte': 152}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__154.geojson', 'rte': 154}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__155.geojson', 'rte': 155}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__156.geojson', 'rte': 156}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__16.geojson', 'rte': 16}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__17.geojson', 'rte': 17}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__18.geojson', 'rte': 18}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__19.geojson', 'rte': 19}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__190.geojson', 'rte': 190}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__193.geojson', 'rte': 193}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__194.geojson', 'rte': 194}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__195.geojson', 'rte': 195}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__20.geojson', 'rte': 20}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__200.geojson', 'rte': 200}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__203.geojson', 'rte': 203}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__208.geojson', 'rte': 208}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__21.geojson', 'rte': 21}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__22.geojson', 'rte': 22}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__23.geojson', 'rte': 23}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__24.geojson', 'rte': 24}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__25.geojson', 'rte': 25}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__29.geojson', 'rte': 29}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__290.geojson', 'rte': 290}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__291.geojson', 'rte': 291}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__30.geojson', 'rte': 30}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__32.geojson', 'rte': 32}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__33.geojson', 'rte': 33}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__34.geojson', 'rte': 34}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__35.geojson', 'rte': 35}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__36.geojson', 'rte': 36}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__37.geojson', 'rte': 37}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__38.geojson', 'rte': 38}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__39.geojson', 'rte': 39}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__4.geojson', 'rte': 4}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__43.geojson', 'rte': 43}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__44.geojson', 'rte': 44}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__45.geojson', 'rte': 45}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__46.geojson', 'rte': 46}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__47.geojson', 'rte': 47}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__48.geojson', 'rte': 48}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__50.geojson', 'rte': 50}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__51.geojson', 'rte': 51}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__52.geojson', 'rte': 52}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__53.geojson', 'rte': 53}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__54.geojson', 'rte': 54}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__55.geojson', 'rte': 55}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__56.geojson', 'rte': 56}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__57.geojson', 'rte': 57}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__58.geojson', 'rte': 58}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__59.geojson', 'rte': 59}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__6.geojson', 'rte': 6}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__61.geojson', 'rte': 61}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__62.geojson', 'rte': 62}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__63.geojson', 'rte': 63}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__64.geojson', 'rte': 64}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__65.geojson', 'rte': 65}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__66.geojson', 'rte': 66}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__67.geojson', 'rte': 67}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__68.geojson', 'rte': 68}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__70.geojson', 'rte': 70}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__71.geojson', 'rte': 71}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__72.geojson', 'rte': 72}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__75.geojson', 'rte': 75}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__76.geojson', 'rte': 76}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__77.geojson', 'rte': 77}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__78.geojson', 'rte': 78}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__79.geojson', 'rte': 79}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__8.geojson', 'rte': 8}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__80.geojson', 'rte': 80}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__81.geojson', 'rte': 81}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__84.geojson', 'rte': 84}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__85.geojson', 'rte': 85}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__87.geojson', 'rte': 87}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__88.geojson', 'rte': 88}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__9.geojson', 'rte': 9}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__90.geojson', 'rte': 90}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__92.geojson', 'rte': 92}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__93.geojson', 'rte': 93}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__94.geojson', 'rte': 94}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__96.geojson', 'rte': 96}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__97.geojson', 'rte': 97}
+                  ,
+                  {'geojsonFilename': 'tm_routes_rte__99.geojson', 'rte': 99}
+                  ,
 
-                    {
-                      id: 'rte_1',
-                      geojsonFilename: 'tm_routes_rte__1.geojson'
-                    },
-
-                    {
-                      id: 'rte_10',
-                      geojsonFilename: 'tm_routes_rte__10.geojson'
-                    },
-
-                    {
-                      id: 'rte_100',
-                      geojsonFilename: 'tm_routes_rte__100.geojson'
-                    },
-
-                    {
-                      id: 'rte_11',
-                      geojsonFilename: 'tm_routes_rte__11.geojson'
-                    },
-
-                    {
-                      id: 'rte_119',
-                      geojsonFilename: 'tm_routes_rte__119.geojson'
-                    },
-
-                    {
-                      id: 'rte_12',
-                      geojsonFilename: 'tm_routes_rte__12.geojson'
-                    },
-
-                    {
-                      id: 'rte_14',
-                      geojsonFilename: 'tm_routes_rte__14.geojson'
-                    },
-
-                    {
-                      id: 'rte_15',
-                      geojsonFilename: 'tm_routes_rte__15.geojson'
-                    },
-
-                    {
-                      id: 'rte_152',
-                      geojsonFilename: 'tm_routes_rte__152.geojson'
-                    },
-
-                    {
-                      id: 'rte_154',
-                      geojsonFilename: 'tm_routes_rte__154.geojson'
-                    },
-
-                    {
-                      id: 'rte_155',
-                      geojsonFilename: 'tm_routes_rte__155.geojson'
-                    },
-
-                    {
-                      id: 'rte_156',
-                      geojsonFilename: 'tm_routes_rte__156.geojson'
-                    },
-
-                    {
-                      id: 'rte_16',
-                      geojsonFilename: 'tm_routes_rte__16.geojson'
-                    },
-
-                    {
-                      id: 'rte_17',
-                      geojsonFilename: 'tm_routes_rte__17.geojson'
-                    },
-
-                    {
-                      id: 'rte_18',
-                      geojsonFilename: 'tm_routes_rte__18.geojson'
-                    },
-
-                    {
-                      id: 'rte_19',
-                      geojsonFilename: 'tm_routes_rte__19.geojson'
-                    },
-
-                    {
-                      id: 'rte_190',
-                      geojsonFilename: 'tm_routes_rte__190.geojson'
-                    },
-
-                    {
-                      id: 'rte_193',
-                      geojsonFilename: 'tm_routes_rte__193.geojson'
-                    },
-
-                    {
-                      id: 'rte_194',
-                      geojsonFilename: 'tm_routes_rte__194.geojson'
-                    },
-
-                    {
-                      id: 'rte_195',
-                      geojsonFilename: 'tm_routes_rte__195.geojson'
-                    },
-
-                    {
-                      id: 'rte_20',
-                      geojsonFilename: 'tm_routes_rte__20.geojson'
-                    },
-
-                    {
-                      id: 'rte_200',
-                      geojsonFilename: 'tm_routes_rte__200.geojson'
-                    },
-
-                    {
-                      id: 'rte_203',
-                      geojsonFilename: 'tm_routes_rte__203.geojson'
-                    },
-
-                    {
-                      id: 'rte_208',
-                      geojsonFilename: 'tm_routes_rte__208.geojson'
-                    },
-
-                    {
-                      id: 'rte_21',
-                      geojsonFilename: 'tm_routes_rte__21.geojson'
-                    },
-
-                    {
-                      id: 'rte_22',
-                      geojsonFilename: 'tm_routes_rte__22.geojson'
-                    },
-
-                    {
-                      id: 'rte_23',
-                      geojsonFilename: 'tm_routes_rte__23.geojson'
-                    },
-
-                    {
-                      id: 'rte_24',
-                      geojsonFilename: 'tm_routes_rte__24.geojson'
-                    },
-
-                    {
-                      id: 'rte_25',
-                      geojsonFilename: 'tm_routes_rte__25.geojson'
-                    },
-
-                    {
-                      id: 'rte_29',
-                      geojsonFilename: 'tm_routes_rte__29.geojson'
-                    },
-
-                    {
-                      id: 'rte_290',
-                      geojsonFilename: 'tm_routes_rte__290.geojson'
-                    },
-
-                    {
-                      id: 'rte_291',
-                      geojsonFilename: 'tm_routes_rte__291.geojson'
-                    },
-
-                    {
-                      id: 'rte_30',
-                      geojsonFilename: 'tm_routes_rte__30.geojson'
-                    },
-
-                    {
-                      id: 'rte_32',
-                      geojsonFilename: 'tm_routes_rte__32.geojson'
-                    },
-
-                    {
-                      id: 'rte_33',
-                      geojsonFilename: 'tm_routes_rte__33.geojson'
-                    },
-
-                    {
-                      id: 'rte_34',
-                      geojsonFilename: 'tm_routes_rte__34.geojson'
-                    },
-
-                    {
-                      id: 'rte_35',
-                      geojsonFilename: 'tm_routes_rte__35.geojson'
-                    },
-
-                    {
-                      id: 'rte_36',
-                      geojsonFilename: 'tm_routes_rte__36.geojson'
-                    },
-
-                    {
-                      id: 'rte_37',
-                      geojsonFilename: 'tm_routes_rte__37.geojson'
-                    },
-
-                    {
-                      id: 'rte_38',
-                      geojsonFilename: 'tm_routes_rte__38.geojson'
-                    },
-
-                    {
-                      id: 'rte_39',
-                      geojsonFilename: 'tm_routes_rte__39.geojson'
-                    },
-
-                    {
-                      id: 'rte_4',
-                      geojsonFilename: 'tm_routes_rte__4.geojson'
-                    },
-
-                    {
-                      id: 'rte_43',
-                      geojsonFilename: 'tm_routes_rte__43.geojson'
-                    },
-
-                    {
-                      id: 'rte_44',
-                      geojsonFilename: 'tm_routes_rte__44.geojson'
-                    },
-
-                    {
-                      id: 'rte_45',
-                      geojsonFilename: 'tm_routes_rte__45.geojson'
-                    },
-
-                    {
-                      id: 'rte_46',
-                      geojsonFilename: 'tm_routes_rte__46.geojson'
-                    },
-
-                    {
-                      id: 'rte_47',
-                      geojsonFilename: 'tm_routes_rte__47.geojson'
-                    },
-
-                    {
-                      id: 'rte_48',
-                      geojsonFilename: 'tm_routes_rte__48.geojson'
-                    },
-
-                    {
-                      id: 'rte_50',
-                      geojsonFilename: 'tm_routes_rte__50.geojson'
-                    },
-
-                    {
-                      id: 'rte_51',
-                      geojsonFilename: 'tm_routes_rte__51.geojson'
-                    },
-
-                    {
-                      id: 'rte_52',
-                      geojsonFilename: 'tm_routes_rte__52.geojson'
-                    },
-
-                    {
-                      id: 'rte_53',
-                      geojsonFilename: 'tm_routes_rte__53.geojson'
-                    },
-
-                    {
-                      id: 'rte_54',
-                      geojsonFilename: 'tm_routes_rte__54.geojson'
-                    },
-
-                    {
-                      id: 'rte_55',
-                      geojsonFilename: 'tm_routes_rte__55.geojson'
-                    },
-
-                    {
-                      id: 'rte_56',
-                      geojsonFilename: 'tm_routes_rte__56.geojson'
-                    },
-
-                    {
-                      id: 'rte_57',
-                      geojsonFilename: 'tm_routes_rte__57.geojson'
-                    },
-
-                    {
-                      id: 'rte_58',
-                      geojsonFilename: 'tm_routes_rte__58.geojson'
-                    },
-
-                    {
-                      id: 'rte_59',
-                      geojsonFilename: 'tm_routes_rte__59.geojson'
-                    },
-
-                    {
-                      id: 'rte_6',
-                      geojsonFilename: 'tm_routes_rte__6.geojson'
-                    },
-
-                    {
-                      id: 'rte_61',
-                      geojsonFilename: 'tm_routes_rte__61.geojson'
-                    },
-
-                    {
-                      id: 'rte_62',
-                      geojsonFilename: 'tm_routes_rte__62.geojson'
-                    },
-
-                    {
-                      id: 'rte_63',
-                      geojsonFilename: 'tm_routes_rte__63.geojson'
-                    },
-
-                    {
-                      id: 'rte_64',
-                      geojsonFilename: 'tm_routes_rte__64.geojson'
-                    },
-
-                    {
-                      id: 'rte_65',
-                      geojsonFilename: 'tm_routes_rte__65.geojson'
-                    },
-
-                    {
-                      id: 'rte_66',
-                      geojsonFilename: 'tm_routes_rte__66.geojson'
-                    },
-
-                    {
-                      id: 'rte_67',
-                      geojsonFilename: 'tm_routes_rte__67.geojson'
-                    },
-
-                    {
-                      id: 'rte_68',
-                      geojsonFilename: 'tm_routes_rte__68.geojson'
-                    },
-
-                    {
-                      id: 'rte_70',
-                      geojsonFilename: 'tm_routes_rte__70.geojson'
-                    },
-
-                    {
-                      id: 'rte_71',
-                      geojsonFilename: 'tm_routes_rte__71.geojson'
-                    },
-
-                    {
-                      id: 'rte_72',
-                      geojsonFilename: 'tm_routes_rte__72.geojson'
-                    },
-
-                    {
-                      id: 'rte_75',
-                      geojsonFilename: 'tm_routes_rte__75.geojson'
-                    },
-
-                    {
-                      id: 'rte_76',
-                      geojsonFilename: 'tm_routes_rte__76.geojson'
-                    },
-
-                    {
-                      id: 'rte_77',
-                      geojsonFilename: 'tm_routes_rte__77.geojson'
-                    },
-
-                    {
-                      id: 'rte_78',
-                      geojsonFilename: 'tm_routes_rte__78.geojson'
-                    },
-
-                    {
-                      id: 'rte_79',
-                      geojsonFilename: 'tm_routes_rte__79.geojson'
-                    },
-
-                    {
-                      id: 'rte_8',
-                      geojsonFilename: 'tm_routes_rte__8.geojson'
-                    },
-
-                    {
-                      id: 'rte_80',
-                      geojsonFilename: 'tm_routes_rte__80.geojson'
-                    },
-
-                    {
-                      id: 'rte_81',
-                      geojsonFilename: 'tm_routes_rte__81.geojson'
-                    },
-
-                    {
-                      id: 'rte_84',
-                      geojsonFilename: 'tm_routes_rte__84.geojson'
-                    },
-
-                    {
-                      id: 'rte_85',
-                      geojsonFilename: 'tm_routes_rte__85.geojson'
-                    },
-
-                    {
-                      id: 'rte_87',
-                      geojsonFilename: 'tm_routes_rte__87.geojson'
-                    },
-
-                    {
-                      id: 'rte_88',
-                      geojsonFilename: 'tm_routes_rte__88.geojson'
-                    },
-
-                    {
-                      id: 'rte_9',
-                      geojsonFilename: 'tm_routes_rte__9.geojson'
-                    },
-
-                    {
-                      id: 'rte_90',
-                      geojsonFilename: 'tm_routes_rte__90.geojson'
-                    },
-
-                    {
-                      id: 'rte_92',
-                      geojsonFilename: 'tm_routes_rte__92.geojson'
-                    },
-
-                    {
-                      id: 'rte_93',
-                      geojsonFilename: 'tm_routes_rte__93.geojson'
-                    },
-
-                    {
-                      id: 'rte_94',
-                      geojsonFilename: 'tm_routes_rte__94.geojson'
-                    },
-
-                    {
-                      id: 'rte_96',
-                      geojsonFilename: 'tm_routes_rte__96.geojson'
-                    },
-
-                    {
-                      id: 'rte_97',
-                      geojsonFilename: 'tm_routes_rte__97.geojson'
-                    },
-
-                    {
-                      id: 'rte_99',
-                      geojsonFilename: 'tm_routes_rte__99.geojson'
-                    },
-                           
                 ]
             };
-            
+            // want to keep this as lightweight as possible, otherwise we get
+            // some async load problems.
             return config;
         });
        
