@@ -5,19 +5,21 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
   var initialize, loadRoutes, l, initializeLayerData;
   // l is a declared variable
   initialize = function() {
+    console.log("we're in initialize!");
     $scope.map = new google.maps.Map(document.getElementById('map-canvas'), {
       center: {lat: 45.5231, lng: -122.6765},
       zoom: 13
     });
     $scope.currentLocationMarker = null; // KS! This appears to be proprietary
+    $scope.selectedSearchValue = void 0; // Evaluates given expression and returns undefined.
     console.log('map initialized!');
   };
   initializeLayerData = function(layerData) {
       layerData.features = $scope.map.data.addGeoJson(layerData.geojsonFilename);
-  }
-  
-  
+  };
+ 
   loadRoutes = function() {
+    console.log("we're in loadRoutes!")
     $scope.layers = $scope.config.layers;
     $rootScope.map = $scope.map;
       setTimeout(function() { // cooperative multitasking... pause the javascript execution. For now, removing this still makes the whole thing work.

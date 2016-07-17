@@ -25,7 +25,7 @@ angular.module('trimappApp', ['ngAnimate', 'ngResource', 'ngRoute', 'ngSanitize'
     '$rootScope', 'config',
     function($rootScope, config) {
         $rootScope.config = config;
-        console.log("we're in app.js", $rootScope.config)
+        console.log("we're in app.js", $rootScope.config);
         //return $rootScope;
     }
 ]);
