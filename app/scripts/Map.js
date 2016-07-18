@@ -10,6 +10,25 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
     $scope.searchFields = [];
     searchFeatures = null;
 
+    $scope.onSelectSearch = function($item, $model, $label) {
+      var rte, f, i, j, k, lat, latlng, len, len1, len2, len3, linearRing, lng, o, polygon, ref, ref1, ref2, x1, x2, y1, y2;
+      if (searchFeatures === null) {
+        return;
+      }
+
+      rte = $item.rte;
+
+      for (i = 0, len = searchFeatures.length; i < len; i++) {
+        f = searchFeatures[i];
+        if (f.getProperty('rte') === rte) {
+          alert('something happened')
+           }
+          $scope.selectedSearchValue = void 0;
+          return;
+      }
+    };
+
+
 
   initialize = function() {
     console.log("we're in initialize!");
@@ -24,13 +43,16 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
             request = $http.get('/search/routeList.json');
             return request.then(function(result) {
               var feature, k, len2, ref1, results;
-              console.log('got search data');
-              console.log(result.data.features);
-
-              /*
-              ref1 = result;
+              console.log('got search data');             
+              ref1 = result.data.features;
+              //console.log(ref1);
               results = [];
-              var abbrevs = [];
+
+              for (k = 0, len2 = ref1.length; k < len2; k++) {
+                feature = ref1[k];
+              
+
+              /* var abbrevs = [];
               for (k = 0, len2 = ref1.length; k < len2; k++) {
                 feature = ref1[k];
 
@@ -42,45 +64,25 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
                         isBuilding:true
                     })
                     abbrevs.push(feature.properties.Abbrev)
-                }
+                } */
 
                 $scope.searchFields.push({
-                  text: feature.properties.Department,
-                  buildingName: feature.properties.Name,
-                  building:feature.properties.BLDG_AIM,
-                  department: feature.properties.Department,
-                  room: feature.properties.Room,
-                  isBuilding: false
+                  text: feature.rte_desc,
+                  route: feature.rte,
+                  signText:feature.dir_desc,
                 });
 
-                $scope.searchFields.push({
-                  text: feature.properties.Room,
-                  buildingName: feature.properties.Name,
-                  building:feature.properties.BLDG_AIM,
-                  department: feature.properties.Department,
-                  room: feature.properties.Room,
-                  isBuilding: false
-                });
-
-                $scope.searchFields.push({
-                  text: feature.properties.Name,
-                  buildingName: feature.properties.Name,
-                  building:feature.properties.BLDG_AIM,
-                  department: feature.properties.Department,
-                  room: feature.properties.Room,
-                  isBuilding: true
-                });
               }
-              return ; */
+              return ;
             }); 
-
           }, 0);
 
   
     loadRoutes();
-
-
     console.log('map initialized!');
+
+
+
 
   };
   initializeLayerData = function(layerData) {
