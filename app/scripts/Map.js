@@ -15,22 +15,23 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
       if (searchFeatures === null) {
         return;
       }
-      console.log('onSelectSearch Fired!')
-      rte = $item.rte;
+      rte = $item.route; // This is an integer (route number)
+      console.log(rte);
 
       for (i = 0, len = searchFeatures.length; i < len; i++) {
         f = searchFeatures[i];
-        if (f.getProperty('rte') === rte) {
-          alert('something happened')
-           }
-          $scope.selectedSearchValue = void 0;
-          return;
+        //console.log(f['rte']);
+        if (f['rte'] === rte) {
+          console.log(f['geojsonFilename']);
+          initializeLayerData(f['geojsonFilename']);
+        }
+        //  $scope.selectedSearchValue = void 0;
+        //  return;
       }
     };
 
 
   initialize = function() {
-    console.log("we're in initialize!");
     $scope.map = new google.maps.Map(document.getElementById('map-canvas'), {
       center: {lat: 45.5231, lng: -122.6765},
       zoom: 13
@@ -44,6 +45,8 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
               var feature, k, len2, ref1, results;
               console.log('got search data');             
               ref1 = result.data.features;
+              searchFeatures = ref1;
+
               //console.log(ref1);
               results = [];
 
@@ -55,23 +58,25 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
                   route: feature.rte,
                   routeDesc:feature.rte_desc,
                 });
-
               }
               return ;
             }); 
           }, 0);
 
   
-    loadRoutes();
+    //loadRoutes();
     console.log('map initialized!');
 
   };
-  initializeLayerData = function(layerData) {
-      layerData.features = $scope.map.data.addGeoJson(layerData.geojsonFilename);
+  initializeLayerData = function(incoming) {
+      //layerData.features = $scope.map.data.addGeoJson(layerData.geojsonFilename);
+      var path = './geojson/'
+      $scope.map.data.loadGeoJson(path + incoming);
+
   };
  
   loadRoutes = function() {
-    console.log("we're in loadRoutes!");
+    //console.log("we're in loadRoutes!");
     $scope.layers = $scope.config.layers;
     $rootScope.map = $scope.map;      
     setTimeout(function() { // cooperative multitasking... pause the javascript execution. For now, removing this still makes the whole thing work.
