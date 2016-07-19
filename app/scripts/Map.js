@@ -1,7 +1,7 @@
 /* global google */
 'use strict';
 angular.module('trimappApp.map', []).controller('mapCtrl',[
-  '$scope', '$rootScope', '$http', function ($scope, $rootScope, $http) {
+  '$scope', '$rootScope', '$http', '$timeout', function ($scope, $rootScope, $http, $timeout) {
   var initialize, loadRoutes, l, initializeLayerData, searchFeatures;
   // l is a declared variable
 
@@ -15,7 +15,7 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
       if (searchFeatures === null) {
         return;
       }
-
+      console.log('onSelectSearch Fired!')
       rte = $item.rte;
 
       for (i = 0, len = searchFeatures.length; i < len; i++) {
@@ -51,12 +51,7 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
                 feature = ref1[k];
               
                 $scope.searchFields.push({
-                  text: feature.rte,
-                  route: feature.rte,
-                  routeDesc:feature.rte_desc,
-                });
-                $scope.searchFields.push({
-                  text: feature.rte_desc,
+                  text: feature.routeVerbose,
                   route: feature.rte,
                   routeDesc:feature.rte_desc,
                 });
@@ -98,9 +93,11 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
         return results;
       }, 0);
   };
-  
+ //---KS: This is the only block that would work to avoid js firing before the map canvas 
+$scope.init = function() {
   initialize();
-
-
+}
+$timeout($scope.init);
+//----
 }
 ]);
