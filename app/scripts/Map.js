@@ -23,11 +23,18 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
         //console.log(f['rte']);
         if (f['rte'] === rte) {
           console.log(f['geojsonFilename']);
+          
           initializeLayerData(f['geojsonFilename']);
         }
-        //  $scope.selectedSearchValue = void 0;
-        //  return;
+        $scope.selectedSearchValue = void 0;
+        //return;
       }
+      $scope.map.data.setStyle({
+          visible: true,
+          strokeColor: 'blue',
+          zIndex: 999   
+      })
+      return
     };
 
 
@@ -101,9 +108,11 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
   };
  //---KS: This is the only block that would work to avoid js firing before the map canvas 
 $scope.init = function() {
+  console.log('scope.init!');
   initialize();
 }
 $timeout($scope.init);
+
 //----
 }
 ]);
