@@ -29,7 +29,6 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
     };
 
 
-
   initialize = function() {
     console.log("we're in initialize!");
     $scope.map = new google.maps.Map(document.getElementById('map-canvas'), {
@@ -51,25 +50,15 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
               for (k = 0, len2 = ref1.length; k < len2; k++) {
                 feature = ref1[k];
               
-
-              /* var abbrevs = [];
-              for (k = 0, len2 = ref1.length; k < len2; k++) {
-                feature = ref1[k];
-
-                if(abbrevs.indexOf(feature.properties.Abbrev) == -1){
-                    $scope.searchFields.push({
-                        text:feature.properties.Abbrev,
-                        buildingName: feature.properties.Name,
-                        building: feature.properties.BLDG_AIM,
-                        isBuilding:true
-                    })
-                    abbrevs.push(feature.properties.Abbrev)
-                } */
-
+                $scope.searchFields.push({
+                  text: feature.rte,
+                  route: feature.rte,
+                  routeDesc:feature.rte_desc,
+                });
                 $scope.searchFields.push({
                   text: feature.rte_desc,
                   route: feature.rte,
-                  signText:feature.dir_desc,
+                  routeDesc:feature.rte_desc,
                 });
 
               }
@@ -80,9 +69,6 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
   
     loadRoutes();
     console.log('map initialized!');
-
-
-
 
   };
   initializeLayerData = function(layerData) {
@@ -114,8 +100,6 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
   };
   
   initialize();
-
-
 
 
 }

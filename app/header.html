@@ -15,17 +15,20 @@
             <li class="active"><a href="#/">Home</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#contact">Contact</a></li>
-            <li><input type="text"
+            <li></li>
+        </div>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+      <div id="search-area">
+        <input type="text"
+                     ng-controller="mapCtrl"
                      ng-model="selectedSearchValue"
                      typeahead="field as field.text for field in searchFields | filter:$viewValue | limitTo:8"
                      typeahead-editable="false"
                      typeahead-on-select="onSelectSearch($item, $model, $label)"
                      class="form-control"
-                     placeholder="Search Routes"></l>
-        </div>
-          </ul>
-        </div><!--/.nav-collapse -->
+                     placeholder="Search Routes">
       </div>
-
     </nav>
 </div>

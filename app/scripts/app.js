@@ -8,7 +8,7 @@
  *
  * Main module of the application.
  */
-angular.module('trimappApp', ['ngAnimate', 'ngResource', 'ngRoute', 'ngSanitize', 'ngTouch', 'trimappApp.map', 'trimappApp.configuration']).config([
+angular.module('trimappApp', ['ngAnimate', 'ngResource', 'ngRoute', 'ngSanitize', 'ngTouch', 'ui.bootstrap', 'trimappApp.map', 'trimappApp.configuration']).config([
     '$routeProvider', // KS, don't know what's going on here.
     function ($routeProvider) {
     $routeProvider.when('/', {

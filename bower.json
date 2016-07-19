@@ -9,6 +9,7 @@
     "angular-resource": "^1.4.0",
     "angular-route": "^1.4.0",
     "angular-sanitize": "^1.4.0",
+    "angular-bootstrap": "~0.10.0",
     "angular-touch": "^1.4.0",
     "angularjs-google-maps": "https://github.com/allenhwkim/angularjs-google-maps.git#~0.3.8"
   },
