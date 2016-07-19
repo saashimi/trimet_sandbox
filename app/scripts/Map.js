@@ -34,7 +34,8 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
   initialize = function() {
     $scope.map = new google.maps.Map(document.getElementById('map-canvas'), {
       center: {lat: 45.5231, lng: -122.6765},
-      zoom: 13
+      zoom: 13,
+      mapTypeId: google.maps.MapTypeId.TERRAIN
     });
  
 
