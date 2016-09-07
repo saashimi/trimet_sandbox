@@ -13,8 +13,8 @@ angular.module('trimappApp', ['ngAnimate', 'ngResource', 'ngRoute', 'ngSanitize'
     function ($routeProvider) {
     $routeProvider.when('/', {
         templateUrl: 'views/main.html',
-        controller: 'mapCtrl',
-        controllerAs: 'main'
+        //controller: 'mapCtrl', <--This causes our script to load twice.
+        //controllerAs: 'main'
       })
       .otherwise({
         redirectTo: '/'

@@ -20,14 +20,12 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
 
       for (i = 0, len = searchFeatures.length; i < len; i++) {
         f = searchFeatures[i];
-        //console.log(f['rte']);
         if (f['rte'] === rte) {
           console.log(f['geojsonFilename']);
           
           initializeLayerData(f['geojsonFilename']);
         }
         $scope.selectedSearchValue = void 0;
-        //return;
       }
       $scope.map.data.setStyle({
           visible: true,
