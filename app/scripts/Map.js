@@ -3,7 +3,6 @@
 angular.module('trimappApp.map', []).controller('mapCtrl',[
   '$scope', '$rootScope', '$http', '$timeout', function ($scope, $rootScope, $http, $timeout) {
   var initialize, loadRoutes, l, initializeLayerData, searchFeatures;
-  // l is a declared variable
 
   //----Initial States----//
     $scope.selectedSearchValue = void 0;
@@ -35,15 +34,13 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
       return
     };
 
-
   initialize = function() {
     $scope.map = new google.maps.Map(document.getElementById('map-canvas'), {
       center: {lat: 45.5231, lng: -122.6765},
       zoom: 13,
       mapTypeId: google.maps.MapTypeId.TERRAIN
     });
- 
-
+    //--- Loads the parameters that will populate during searches
     setTimeout(function() {
             var request;
             request = $http.get('/search/routeList.json');
@@ -52,8 +49,6 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
               console.log('got search data');             
               ref1 = result.data.features;
               searchFeatures = ref1;
-
-              //console.log(ref1);
               results = [];
 
               for (k = 0, len2 = ref1.length; k < len2; k++) {
@@ -67,15 +62,11 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
               }
               return ;
             }); 
-          }, 0);
-
-  
-    //loadRoutes();
+          }, 0);  
     console.log('map initialized!');
 
   };
   initializeLayerData = function(incoming) {
-      //layerData.features = $scope.map.data.addGeoJson(layerData.geojsonFilename);
       var path = './geojson/'
       $scope.map.data.loadGeoJson(path + incoming);
 
@@ -110,7 +101,5 @@ $scope.init = function() {
   initialize();
 }
 $timeout($scope.init);
-
-//----
 }
 ]);
