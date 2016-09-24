@@ -2,7 +2,7 @@
 'use strict';
 angular.module('trimappApp.map', []).controller('mapCtrl',[
   '$scope', '$rootScope', '$http', '$timeout', function ($scope, $rootScope, $http, $timeout) {
-  var initialize, loadRoutes, l, initializeLayerData, searchFeatures;
+  var initialize, loadRoutes, l, toggleFeature, searchFeatures;
 
   //----Initial States----//
     $scope.selectedSearchValue = void 0;
@@ -22,15 +22,11 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
         if (f['rte'] === rte) {
           console.log(f['geojsonFilename']);
           
-          initializeLayerData(f['geojsonFilename']);
+          toggleFeature(f['geojsonFilename']);
         }
         $scope.selectedSearchValue = void 0;
       }
-      $scope.map.data.setStyle({
-          visible: true,
-          strokeColor: 'blue',
-          zIndex: 999   
-      })
+
       return
     };
 
@@ -66,11 +62,35 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
     console.log('map initialized!');
 
   };
-  initializeLayerData = function(incoming) {
-      var path = './geojson/'
-      $scope.map.data.loadGeoJson(path + incoming);
+//  initializerouteData = function(incoming) {
+//      var path = './geojson/'
+//      $scope.map.data.loadGeoJson(path + incoming);
+//  };
 
-  };
+  toggleFeature = function(routeData) {
+        console.log($scope.map.data);
+        var features = $scope.map.data;
+        for (var i = 0; i < features.length; i++)
+          $scope.map.data.remove(features[i]);
+        var path = './geojson/'
+            $scope.map.data.setStyle({
+            visible: true,
+            strokeColor: 'blue',
+            zIndex: 999   
+        })
+        $.getJSON(path + routeData, function(data) {
+          $scope.map.data.addGeoJson(data);
+        });
+
+    };  
+//      $scope.map.data.addGeoJson(path + routeData);
+//      routeData.setProperty('isVisible', isOn ? 'true' : 'false');
+//    return $scope.map.data.overrideStyle(f, {
+//      visible: isOn
+//    });
+//    console.log($scope.map.data.visible());
+//    }
+//  };  
  
   loadRoutes = function() {
     //console.log("we're in loadRoutes!");
@@ -88,7 +108,8 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
             //                v-----request.then() is a promise
             return request.then(function(result) {
               l.geojsonFilename = result.data;  // loads all geojson data one at a time 
-              initializeLayerData(l);
+//              initializerouteData(l);
+                toggleFeature(l, false);
             });
         })(l)); // immediately pushes geojson objects to results
         }
