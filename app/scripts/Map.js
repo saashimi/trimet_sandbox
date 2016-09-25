@@ -62,36 +62,43 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
     console.log('map initialized!');
 
   };
-//  initializerouteData = function(incoming) {
-//      var path = './geojson/'
-//      $scope.map.data.loadGeoJson(path + incoming);
-//  };
 
+  
   toggleFeature = function(routeData) {
-        console.log($scope.map.data);
-        var features = $scope.map.data;
-        for (var i = 0; i < features.length; i++)
-          $scope.map.data.remove(features[i]);
-        var path = './geojson/'
-            $scope.map.data.setStyle({
-            visible: true,
-            strokeColor: 'blue',
-            zIndex: 999   
-        })
-        $.getJSON(path + routeData, function(data) {
-          $scope.map.data.addGeoJson(data);
-        });
+    $scope.map.data.forEach(function(feature) {
+      $scope.map.data.remove(feature);
+    });
 
-    };  
-//      $scope.map.data.addGeoJson(path + routeData);
-//      routeData.setProperty('isVisible', isOn ? 'true' : 'false');
-//    return $scope.map.data.overrideStyle(f, {
-//      visible: isOn
-//    });
-//    console.log($scope.map.data.visible());
-//    }
-//  };  
- 
+    var path = './geojson/'
+      $scope.map.data.setStyle({
+        visible: true,
+        strokeColor: 'blue',
+        zIndex: 999   
+      })
+
+    var bounds = new google.maps.LatLngBounds();
+    $scope.map.data.addListener('addfeature', function(e) {
+        processPoints(e.feature.getGeometry(), bounds.extend, bounds);
+        $scope.map.fitBounds(bounds);
+    });
+
+    var path = './geojson/'
+    var rteGeoJSON = $scope.map.data.loadGeoJson(path + routeData);
+
+    function processPoints(geometry, callback, thisArg) {
+        if (geometry instanceof google.maps.LatLng) {
+            callback.call(thisArg, geometry);
+        } else if (geometry instanceof google.maps.Data.Point) {
+            callback.call(thisArg, geometry.get());
+        } else {
+            geometry.getArray().forEach(function (g) {
+                processPoints(g, callback, thisArg);
+            });
+        }
+    }
+  };
+
+  
   loadRoutes = function() {
     //console.log("we're in loadRoutes!");
     $scope.layers = $scope.config.layers;
