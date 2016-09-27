@@ -100,7 +100,6 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
 
   
   loadRoutes = function() {
-    //console.log("we're in loadRoutes!");
     $scope.layers = $scope.config.layers;
     $rootScope.map = $scope.map;      
     setTimeout(function() { // cooperative multitasking... pause the javascript execution. For now, removing this still makes the whole thing work.
