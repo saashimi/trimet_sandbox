@@ -2,9 +2,10 @@
 'use strict';
 angular.module('trimappApp.map', []).controller('mapCtrl',[
   '$scope', '$rootScope', '$http', '$timeout', 'trimetAPIService', 'appIDService', function ($scope, $rootScope, $http, $timeout, trimetAPIService, appIDService) {
-  var initialize, loadRoutes, l, toggleFeature, searchFeatures;
+  var APPID, initialize, loadRoutes, l, test, toggleFeature, searchFeatures;
 
   //----Initial States----//
+    APPID = appIDService.APPID();
     $scope.selectedSearchValue = void 0;
     $scope.searchFields = [];
     searchFeatures = null;
@@ -21,14 +22,17 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
         f = searchFeatures[i];
         if (f['rte'] === rte) {
           console.log(f['geojsonFilename']);
-          
+          trimetAPIService.trimetRouteAPI(APPID,rte);
           toggleFeature(f['geojsonFilename']);
         }
         $scope.selectedSearchValue = void 0;
       }
-
       return
     };
+  
+  test = function() {
+    console.log("successful test!");
+  };
 
   initialize = function() {
     $scope.map = new google.maps.Map(document.getElementById('map-canvas'), {
@@ -76,6 +80,7 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
         zIndex: 999   
       })
 
+    //---Zoom to route geojson extents---
     var bounds = new google.maps.LatLngBounds();
     $scope.map.data.addListener('addfeature', function(e) {
         processPoints(e.feature.getGeometry(), bounds.extend, bounds);
@@ -114,8 +119,6 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
             //                v-----request.then() is a promise
             return request.then(function(result) {
               l.geojsonFilename = result.data;  // loads all geojson data one at a time 
-//              initializerouteData(l);
-                toggleFeature(l, false);
             });
         })(l)); // immediately pushes geojson objects to results
         }
@@ -125,7 +128,7 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
  //---KS: This is the only block that would work to avoid js firing before the map canvas 
 $scope.init = function() {
   console.log('scope.init!');
-  initialize();
+  initialize()
 }
 $timeout($scope.init);
 }

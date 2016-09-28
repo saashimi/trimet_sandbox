@@ -4,16 +4,16 @@
         .factory('trimetAPIService', function() {
             var trimetAPIService = 
             {
-                trimetRouteAPI : function(passRouteInput) {
+                trimetRouteAPI : function(passAPPID, passRouteInput) {
                 /* Accesses the TriMet API for live vehicle location info.
                 Output: An array containing objects: lat/long, vehicle ID, timestamp, direction, 
                 and verbose route information.
-                Input: Route number from user selection dropdown. */
+                Input: Route number from user selection from search. */
                 
                 var url = "https://developer.trimet.org/ws/v2/vehicles/appID=" 
                 var dataOut = [];
                 var innerData;
-                $.post(url + APPID, function(data) {
+                $.post(url + passAPPID, function(data) {
                 data = data.resultSet.vehicle;
                 $.each(data, function(outerIndex, outerValue) { // Key into the inner JSON
                     innerData = data[outerIndex];
@@ -28,8 +28,10 @@
                           direction : innerData.direction,      
                           signMessageLong : innerData.signMessageLong 
                         };
+                        console.log(dataPacket);
                         dataOut.push(dataPacket);
-                        gmapScript.displayMarkers(dataOut);
+                        //trimappApp.map.displayMarkers(dataOut);
+                        mapCtrl.test();
                       } 
                     });
                   });
