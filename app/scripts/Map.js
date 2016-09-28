@@ -1,7 +1,7 @@
 /* global google */
 'use strict';
 angular.module('trimappApp.map', []).controller('mapCtrl',[
-  '$scope', '$rootScope', '$http', '$timeout', 'trimetAPIService', function ($scope, $rootScope, $http, $timeout, trimetAPIService) {
+  '$scope', '$rootScope', '$http', '$timeout', 'trimetAPIService', 'appIDService', function ($scope, $rootScope, $http, $timeout, trimetAPIService, appIDService) {
   var initialize, loadRoutes, l, toggleFeature, searchFeatures;
 
   //----Initial States----//

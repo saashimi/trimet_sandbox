@@ -68,8 +68,8 @@
 
             }*/
 
-        };
-            return trimetAPIService
+            };
+            return trimetAPIService;
 
       });  
 
