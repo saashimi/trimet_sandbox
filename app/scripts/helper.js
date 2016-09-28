@@ -1,6 +1,6 @@
 (function() {
     'use strict';
-    angular.module('app.helpers', [])
+    angular.module('trimappApp.helpers', [])
         .factory('trimetAPIService', function() {
             var trimetAPIService = 
             {
@@ -34,15 +34,15 @@
                     });
                   });
               });
-            }, 
-
+            },
+/*
                 trimetStopAPI : function(passStopRouteServed, passStopInput, passStopName) {
                 /* Accesses TriMet arrivals API for realtime vehicle ETAs for that particular
                 route and stop. 
                 Input data: Route number, Stop ID, descriptive stop name.
                 Output data: Array of incoming vehicle IDs,
                              Array of incoming vehicle ETAs in unix time format,
-                             Verbose stop name. */
+                             Verbose stop name. 
 
                 var url = "https://developer.trimet.org/ws/v2/arrivals?locIDs=";
                 var locID = passStopInput;
@@ -66,7 +66,11 @@
                 });
               },   
 
-            }
-        })
+            }*/
 
-})
+        };
+            return trimetAPIService
+
+      });  
+
+}).call(this);
