@@ -1,6 +1,6 @@
 /* global google */
 'use strict';
-angular.module('trimappApp.map', []).controller('mapCtrl',[
+angular.module('trimappApp.map', ['trimappApp.helpers']).controller('mapCtrl',[
   '$scope', '$rootScope', '$http', '$timeout', 'trimetAPIService', 'appIDService', function ($scope, $rootScope, $http, $timeout, trimetAPIService, appIDService) {
   var APPID, initialize, loadRoutes, l, test, toggleFeature, searchFeatures;
 
@@ -30,10 +30,6 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
       return
     };
   
-  test = function() {
-    console.log("successful test!");
-  };
-
   initialize = function() {
     $scope.map = new google.maps.Map(document.getElementById('map-canvas'), {
       center: {lat: 45.5231, lng: -122.6765},
@@ -132,4 +128,13 @@ $scope.init = function() {
 }
 $timeout($scope.init);
 }
-]);
+])
+
+.factory('test', function() {
+  return {
+    testPrint: function() {
+      console.log('yeah test');
+    }
+  };
+
+});
