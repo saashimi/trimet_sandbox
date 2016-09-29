@@ -1,13 +1,14 @@
 /* global google */
 'use strict';
-angular.module('trimappApp.map', ['trimappApp.helpers']).controller('mapCtrl',[
-  '$scope', '$rootScope', '$http', '$timeout', 'trimetAPIService', 'appIDService', function ($scope, $rootScope, $http, $timeout, trimetAPIService, appIDService) {
-  var APPID, initialize, loadRoutes, l, test, toggleFeature, searchFeatures;
+angular.module('trimappApp.map', []).controller('mapCtrl',[
+  '$scope', '$rootScope', '$http', '$timeout', 'appIDService', function ($scope, $rootScope, $http, $timeout, appIDService) {
+  var APPID, displayMarkers, initialize, loadRoutes, l, mapObjects, toggleFeature, trimetRouteAPI, searchFeatures, setMapOnAll, clearObjects, deleteObjects;
 
   //----Initial States----//
     APPID = appIDService.APPID();
     $scope.selectedSearchValue = void 0;
     $scope.searchFields = [];
+    mapObjects = [];
     searchFeatures = null;
 
     $scope.onSelectSearch = function($item, $model, $label) {
@@ -22,7 +23,7 @@ angular.module('trimappApp.map', ['trimappApp.helpers']).controller('mapCtrl',[
         f = searchFeatures[i];
         if (f['rte'] === rte) {
           console.log(f['geojsonFilename']);
-          trimetAPIService.trimetRouteAPI(APPID,rte);
+          trimetRouteAPI(APPID,rte);
           toggleFeature(f['geojsonFilename']);
         }
         $scope.selectedSearchValue = void 0;
@@ -65,6 +66,7 @@ angular.module('trimappApp.map', ['trimappApp.helpers']).controller('mapCtrl',[
 
   
   toggleFeature = function(routeData) {
+    deleteObjects();
     $scope.map.data.forEach(function(feature) {
       $scope.map.data.remove(feature);
     });
@@ -121,6 +123,121 @@ angular.module('trimappApp.map', ['trimappApp.helpers']).controller('mapCtrl',[
         return results;
       }, 0);
   };
+
+  trimetRouteAPI = function(passAPPID, passRouteInput) {
+  /* Accesses the TriMet API for live vehicle location info.
+  Output: An array containing objects: lat/long, vehicle ID, timestamp, direction, 
+  and verbose route information.
+  Input: Route number from user selection from search. */
+  
+  var url = "https://developer.trimet.org/ws/v2/vehicles/appID=" 
+  var dataOut = [];
+  var innerData;
+  $.post(url + passAPPID, function(data) {
+    data = data.resultSet.vehicle;
+    $.each(data, function(outerIndex, outerValue) { // Key into the inner JSON
+        innerData = data[outerIndex];
+        $.each(innerData, function(innerIndex, innerValue) {
+          if (innerIndex === "routeNumber" && 
+              innerValue === Number(passRouteInput)) { 
+            var dataPacket = {
+              latitude : innerData.latitude,       
+              longitude : innerData.longitude,     
+              vehicleID : innerData.vehicleID,     
+              time : innerData.time,          
+              direction : innerData.direction,      
+              signMessageLong : innerData.signMessageLong 
+            };
+            dataOut.push(dataPacket);
+            displayMarkers(dataOut);
+          } 
+        });
+      });
+    });
+  },
+
+  displayMarkers = function(dataIn) {
+    /* Displays marker data from TriMet API data coordinates.
+    Input: output from trimetFuncs.trimetStops(); an object containing lat/long coords,
+           vehicle ID, timestamp, direction, and verbose route information.
+    Output: A blue marker on the google map canvas if direction = 0; 
+            A green marker on the google map canvas if direction = 1. */
+      var markerData = dataIn;
+      for( var i = 0; i < markerData.length; i++ ) {
+        var position = new google.maps.LatLng(
+                                              markerData[i].latitude, 
+                                              markerData[i].longitude
+                                              );
+        //console.log(position);
+        if (markerData[i].direction === 0) { 
+          var marker = new google.maps.Marker({
+              icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png",
+              position: position,
+              map: $scope.map,
+              animation: google.maps.Animation.DROP,
+              clickable: true,
+              zIndex: 999 // places markers above stop icons.
+          })
+        } else {
+           var marker = new google.maps.Marker({
+              icon: "http://maps.google.com/mapfiles/ms/icons/green-dot.png",
+              position: position,
+              map: $scope.map,
+              animation: google.maps.Animation.DROP,
+              clickable: true,
+              zindex: 999
+          });
+          }
+
+          //TODO: Make Unix time conversion its own function
+          var date = new Date(markerData[i].time);
+          if (date.getHours() > 12) { 
+            var hours = date.getHours() - 12;
+          } else { 
+            var hours = date.getHours();
+          };
+          var minutes = "0" + date.getMinutes();
+          var logTime = hours + ":" + minutes.substr(-2);
+        
+
+        var infoContent = ('<h5><p> Vehicle Number: ' + String(markerData[i].vehicleID) + 
+            '</br>' + '<p>' + String(markerData[i].signMessageLong) + '</br>'
+            +'<h6><p> This position was logged at: ' + logTime + '</br></h6>' 
+            
+            );
+        marker.info = new google.maps.InfoWindow({
+          content: infoContent
+        })
+
+        mapObjects.push(marker);
+        //Zooms in on marker upon click.
+        google.maps.event.addListener(marker, 'click', function() {
+          $scope.map.panTo(this.getPosition());
+          $scope.map.setZoom(15);
+          this.info.open($scope.map, this);
+        });  
+      }
+    },
+
+  setMapOnAll = function(map) {
+    for (var i = 0; i < mapObjects.length; i++) {
+      mapObjects[i].setMap(map);
+    }
+  }
+
+  // Removes the mapObjects from the map, but keeps them in the array.
+  clearObjects = function() {
+    setMapOnAll(null);
+  }
+
+  // Deletes all mapObjects in the array by removing references to them.
+  deleteObjects = function() {
+    clearObjects();
+    mapObjects = [];
+  }
+
+
+
  //---KS: This is the only block that would work to avoid js firing before the map canvas 
 $scope.init = function() {
   console.log('scope.init!');
@@ -129,12 +246,3 @@ $scope.init = function() {
 $timeout($scope.init);
 }
 ])
-
-.factory('test', function() {
-  return {
-    testPrint: function() {
-      console.log('yeah test');
-    }
-  };
-
-});

@@ -1,7 +1,7 @@
 (function() {
     'use strict';
     angular.module('trimappApp.helpers', [])
-        .factory('trimetAPIService', function(test) {
+        .factory('trimetAPIService', function(displayService) {
             var trimetAPIService = 
             {
                 trimetRouteAPI : function(passAPPID, passRouteInput) {
@@ -28,10 +28,10 @@
                           direction : innerData.direction,      
                           signMessageLong : innerData.signMessageLong 
                         };
-                        console.log(dataPacket);
+                        //console.log(dataPacket);
                         dataOut.push(dataPacket);
-                        //trimappApp.map.displayMarkers(dataOut);
-                        test.testPrint();
+                        displayService.displayMarkers(dataOut);
+                        //test.testPrint();
                       } 
                     });
                   });
