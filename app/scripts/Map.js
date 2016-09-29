@@ -21,14 +21,14 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
 
       for (i = 0, len = searchFeatures.length; i < len; i++) {
         f = searchFeatures[i];
-        if (f['rte'] === rte) {
-          console.log(f['geojsonFilename']);
-          trimetRouteAPI(APPID,rte);
-          toggleFeature(f['geojsonFilename']);
+        if (f.rte === rte) {
+          console.log(f.geojsonFilename);
+          trimetRouteAPI(APPID, rte);
+          toggleFeature(f.geojsonFilename);
         }
         $scope.selectedSearchValue = void 0;
       }
-      return
+      return;
     };
   
   initialize = function() {
@@ -71,12 +71,11 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
       $scope.map.data.remove(feature);
     });
 
-    var path = './geojson/'
       $scope.map.data.setStyle({
         visible: true,
         strokeColor: 'blue',
         zIndex: 999   
-      })
+      });
 
     //---Zoom to route geojson extents---
     var bounds = new google.maps.LatLngBounds();
@@ -85,7 +84,7 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
         $scope.map.fitBounds(bounds);
     });
 
-    var path = './geojson/'
+    var path = './geojson/';
     var rteGeoJSON = $scope.map.data.loadGeoJson(path + routeData);
 
     function processPoints(geometry, callback, thisArg) {
@@ -130,7 +129,7 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
   and verbose route information.
   Input: Route number from user selection from search. */
   
-  var url = "https://developer.trimet.org/ws/v2/vehicles/appID=" 
+  var url = "https://developer.trimet.org/ws/v2/vehicles/appID="; 
   var dataOut = [];
   var innerData;
   $.post(url + passAPPID, function(data) {
@@ -177,9 +176,9 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
               animation: google.maps.Animation.DROP,
               clickable: true,
               zIndex: 999 // places markers above stop icons.
-          })
+          });
         } else {
-           var marker = new google.maps.Marker({
+              marker = new google.maps.Marker({
               icon: "http://maps.google.com/mapfiles/ms/icons/green-dot.png",
               position: position,
               map: $scope.map,
@@ -194,8 +193,8 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
           if (date.getHours() > 12) { 
             var hours = date.getHours() - 12;
           } else { 
-            var hours = date.getHours();
-          };
+            hours = date.getHours();
+          }
           var minutes = "0" + date.getMinutes();
           var logTime = hours + ":" + minutes.substr(-2);
         
@@ -223,26 +222,26 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
     for (var i = 0; i < mapObjects.length; i++) {
       mapObjects[i].setMap(map);
     }
-  }
+  };
 
   // Removes the mapObjects from the map, but keeps them in the array.
   clearObjects = function() {
     setMapOnAll(null);
-  }
+  };
 
   // Deletes all mapObjects in the array by removing references to them.
   deleteObjects = function() {
     clearObjects();
     mapObjects = [];
-  }
+  };
 
 
 
  //---KS: This is the only block that would work to avoid js firing before the map canvas 
 $scope.init = function() {
   console.log('scope.init!');
-  initialize()
-}
+  initialize();
+};
 $timeout($scope.init);
 }
-])
+]);
