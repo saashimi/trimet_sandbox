@@ -40,7 +40,7 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
     //--- Loads the parameters that will populate during searches
     setTimeout(function() {
             var request;
-            request = $http.get('/search/routeList.json');
+            request = $http.get('search/routeList.json');
             return request.then(function(result) {
               var feature, k, len2, ref1, results;
               console.log('got search data');             
@@ -84,7 +84,7 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
         $scope.map.fitBounds(bounds);
     });
 
-    var path = './geojson/';
+    var path = 'geojson/';
     var rteGeoJSON = $scope.map.data.loadGeoJson(path + routeData);
 
     function processPoints(geometry, callback, thisArg) {
