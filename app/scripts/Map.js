@@ -2,7 +2,7 @@
 'use strict';
 angular.module('trimappApp.map', []).controller('mapCtrl',[
   '$scope', '$rootScope', '$http', '$timeout', 'appIDService', function ($scope, $rootScope, $http, $timeout, appIDService) {
-  var APPID, displayMarkers, initialize, loadRoutes, l, mapObjects, toggleFeature, trimetRouteAPI, searchFeatures, setMapOnAll, clearObjects, deleteObjects;
+  var APPID, displayMarkers, displayRouteStops, initialize, loadRoutes, l, mapObjects, toggleFeature, trimetRouteAPI, searchFeatures, setMapOnAll, clearObjects, deleteObjects;
 
   //----Initial States----//
     APPID = appIDService.APPID();
@@ -12,7 +12,7 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
     searchFeatures = null;
 
     $scope.onSelectSearch = function($item, $model, $label) {
-      var rte, f, i, j, k, lat, latlng, len, len1, len2, len3, linearRing, lng, o, polygon, ref, ref1, ref2, x1, x2, y1, y2;
+      var rte, f, i, len;
       if (searchFeatures === null) {
         return;
       }
@@ -24,6 +24,7 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
         if (f.rte === rte) {
           console.log(f.geojsonFilename);
           trimetRouteAPI(APPID, rte);
+          displayRouteStops(rte);
           toggleFeature(f.geojsonFilename);
         }
         $scope.selectedSearchValue = void 0;
@@ -122,6 +123,20 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
         return results;
       }, 0);
   };
+
+  displayRouteStops = function(dataIn) {
+    $scope.map.data.setStyle(function(feature) {
+      var dir = feature.getProperty('dir');
+      var blueUrl = 'https://maps.google.com/mapfiles/kml/paddle/blu-blank-lv.png';
+      var greenUrl = 'https://maps.google.com/mapfiles/kml/paddle/grn-blank-lv.png';
+      var iconColor = dir===0 ? blueUrl : greenUrl;  
+      return({
+      icon: iconColor  
+      });
+    });
+    $scope.map.data.loadGeoJson('./geojson/tm_route_stops_rte_' + dataIn + '.geojson');
+  };
+
 
   trimetRouteAPI = function(passAPPID, passRouteInput) {
   /* Accesses the TriMet API for live vehicle location info.
