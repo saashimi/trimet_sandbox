@@ -2,13 +2,14 @@
 'use strict';
 angular.module('trimappApp.map', []).controller('mapCtrl',[
   '$scope', '$rootScope', '$http', '$timeout', 'appIDService', function ($scope, $rootScope, $http, $timeout, appIDService) {
-  var APPID, displayMarkers, displayRouteStops, initialize, loadRoutes, l, mapObjects, toggleFeature, trimetRouteAPI, searchFeatures, setMapOnAll, clearObjects, deleteObjects;
+  var APPID, clickListener, displayMarkers, displayRouteStops, initialize, infowindow, infoWindowSetup, loadRoutes, l, mapObjects, toggleFeature, trimetRouteAPI, trimetStopAPI, searchFeatures, setMapOnAll, clearObjects, deleteObjects;
 
   //----Initial States----//
     APPID = appIDService.APPID();
     $scope.selectedSearchValue = void 0;
     $scope.searchFields = [];
     mapObjects = [];
+    infowindow = new google.maps.InfoWindow();
     searchFeatures = null;
 
     $scope.onSelectSearch = function($item, $model, $label) {
@@ -61,7 +62,7 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
               return ;
             }); 
           }, 0);  
-    console.log('map initialized!');
+    console.log('map initialized!')
 
   };
 
@@ -137,6 +138,7 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
         var iconColor = dir===0 ? blueUrl : greenUrl;  
         return({
         icon: iconColor,
+        clickable: true
         });
       });
       $scope.map.addListener('zoom_changed', function() {
@@ -148,12 +150,17 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
           stopLayer.setMap($scope.map);
         }
       });
-
     }, 0);
-
+    stopLayer.addListener('click', function(event) {
+    //Waits for user to click on a stop and calls triMet arrivals API for info on
+    //selected stop.
+    var stopID = event.feature.getProperty("stop_id");
+    var stopName = event.feature.getProperty("stop_name");
+    var stopRouteServed = event.feature.getProperty("rte");  
+    infowindow.setPosition(event.latLng);
+    var response = trimetStopAPI(stopRouteServed, stopID, stopName);   
+    });
   }; 
-
-
 
   trimetRouteAPI = function(passAPPID, passRouteInput) {
   /* Accesses the TriMet API for live vehicle location info.
@@ -250,6 +257,74 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
       }
     },
 
+  trimetStopAPI = function(passStopRouteServed, passStopInput, passStopName) {
+    /* Accesses TriMet arrivals API for realtime vehicle ETAs for that particular
+    route and stop. 
+    Input data: Route number, Stop ID, descriptive stop name.
+    Output data: Array of incoming vehicle IDs,
+                 Array of incoming vehicle ETAs in unix time format,
+                 Verbose stop name. */
+
+    var url = "https://developer.trimet.org/ws/v2/arrivals?locIDs=";
+    var locID = passStopInput;
+    var urlTrailing =  "&minutes&appID=";
+    var innerStopData;
+    var vehicleList = [];
+    var arrivalTime = [];
+    $.post(url + locID + urlTrailing + APPID, function(data) {
+    data = data.resultSet.arrival;
+      $.each(data, function(index, value) {
+        innerStopData = data[index]
+        $.each(innerStopData, function(innerIndex, innerValue) {
+          if (innerIndex === "route" && innerValue === passStopRouteServed) { 
+            var vehicleID = innerStopData.vehicleID;
+            vehicleList.push(vehicleID);        
+            arrivalTime.push(innerStopData.estimated);         
+          }
+        });
+      });
+      infoWindowSetup(vehicleList, arrivalTime, passStopName, locID);
+    });
+  },
+
+  infoWindowSetup = function(passVehicles, passArrivals, passStopName, passStopInput) {
+      /* Sets up the info windows for selected route stops. 
+      Inputs: array of incoming vehicles,
+              array of incoming arrival times,
+              verbose stop name
+      Output: infowindow content displayed on the google maps canvas, pertaining
+              to the selected stop. */
+
+      var formattedETA = [];
+      //Converts unix time format to HH:MM format.
+      
+      $.each(passArrivals, function(index, value) {
+        var date = new Date(value);
+        if (date.getHours() > 12) { 
+          var hours = date.getHours() - 12;
+        } else { 
+          var hours = date.getHours();
+        }
+        var minutes = "0" + date.getMinutes();
+        var ETA = hours + ":" + minutes.substr(-2);
+        formattedETA.push(ETA);
+      });
+
+      // Formats and populates the info window. 
+      var infoContent = (
+        "<h5><p> This is stop: " + passStopInput + "</br>"
+        + "<h4><p>" + passStopName + "</br></h4>"
+        + "<h6><p>Upcoming Vehicles (ID#): " + passVehicles + "</br></h6>"
+        + "<h6><p>Estimated arrival times: " + formattedETA + "</br></h6>"
+      )
+      infowindow.setContent(infoContent);
+      infowindow.setOptions(
+        {pixelOffset: new google.maps.Size(0,-10)}
+        );
+      infowindow.open($scope.map);
+  },
+
+
   setMapOnAll = function(map) {
     for (var i = 0; i < mapObjects.length; i++) {
       mapObjects[i].setMap(map);
@@ -266,8 +341,6 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
     clearObjects();
     mapObjects = [];
   };
-
-
 
 
  //---KS: This is the only block that would work to avoid js firing before the map canvas 
