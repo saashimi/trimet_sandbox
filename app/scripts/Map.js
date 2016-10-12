@@ -2,7 +2,7 @@
 'use strict';
 angular.module('trimappApp.map', []).controller('mapCtrl',[
   '$scope', '$rootScope', '$http', '$timeout', 'appIDService', function ($scope, $rootScope, $http, $timeout, appIDService) {
-  var APPID, clickListener, displayMarkers, displayRouteStops, initialize, infowindow, infoWindowSetup, loadRoutes, l, mapObjects, toggleFeature, trimetRouteAPI, trimetStopAPI, searchFeatures, setMapOnAll, clearObjects, deleteObjects;
+  var APPID, clickListener, displayMarkers, displayRouteStops, initialize, infowindow, infoWindowSetup, loadRoutes, l, mapObjects, toggleFeature, trimetRouteAPI, trimetStopAPI, searchFeatures, setMapOnAll, stopLayer, clearObjects, deleteObjects;
 
   //----Initial States----//
     APPID = appIDService.APPID();
@@ -126,7 +126,12 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
   };
 
   displayRouteStops = function(dataIn) {
-    var stopLayer = new google.maps.Data( {map: $scope.map} );
+    if (stopLayer) {
+      stopLayer.forEach(function(feature) {
+        stopLayer.remove(feature);
+      });   
+    };
+    stopLayer = new google.maps.Data( {map: $scope.map} );
     stopLayer.loadGeoJson('./geojson/tm_route_stops_rte_' + dataIn + '.geojson');
     setTimeout(function() {
     /*must use coop multitasking here, otherwise the styles will not be loaded before the 
