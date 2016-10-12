@@ -72,11 +72,11 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
       $scope.map.data.remove(feature);
     });
 
-     /* $scope.map.data.setStyle({
+     $scope.map.data.setStyle({
         visible: true,
         strokeColor: 'blue',
         zIndex: 999   
-      }); */
+      });
 
     //---Zoom to route geojson extents---
     var bounds = new google.maps.LatLngBounds();
@@ -125,22 +125,34 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
   };
 
   displayRouteStops = function(dataIn) {
-    $scope.map.data.loadGeoJson('./geojson/tm_route_stops_rte_' + dataIn + '.geojson');
+    var stopLayer = new google.maps.Data( {map: $scope.map} );
+    stopLayer.loadGeoJson('./geojson/tm_route_stops_rte_' + dataIn + '.geojson');
     setTimeout(function() {
     /*must use coop multitasking here, otherwise the styles will not be loaded before the 
     geojson loads.*/  
-      $scope.map.data.setStyle(function(feature) {
+      stopLayer.setStyle(function(feature) {
         var dir = feature.getProperty('dir');
         var blueUrl = 'https://maps.google.com/mapfiles/kml/paddle/blu-blank-lv.png';
         var greenUrl = 'https://maps.google.com/mapfiles/kml/paddle/grn-blank-lv.png';
         var iconColor = dir===0 ? blueUrl : greenUrl;  
         return({
         icon: iconColor,
-        strokeColor: 'blue'  
         });
       });
+      $scope.map.addListener('zoom_changed', function() {
+        //Prevents visual clutter by hiding bus stops until a close-in zoom level.
+        var zoomLevel = $scope.map.getZoom();
+        if (zoomLevel < 15) {
+          stopLayer.setMap(null);
+        } else {
+          stopLayer.setMap($scope.map);
+        }
+      });
+
     }, 0);
-  };
+
+  }; 
+
 
 
   trimetRouteAPI = function(passAPPID, passRouteInput) {
@@ -254,6 +266,7 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
     clearObjects();
     mapObjects = [];
   };
+
 
 
 
