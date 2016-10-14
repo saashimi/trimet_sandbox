@@ -126,6 +126,7 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
   };
 
   displayRouteStops = function(dataIn) {
+    var dir, blueUrl, greenUrl, iconColor, stopID, stopName, stopRouteServed, response;
     if (stopLayer) {
       stopLayer.forEach(function(feature) {
         stopLayer.remove(feature);
@@ -137,13 +138,13 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
     /*must use coop multitasking here, otherwise the styles will not be loaded before the 
     geojson loads.*/  
       stopLayer.setStyle(function(feature) {
-        var dir = feature.getProperty('dir');
-        var blueUrl = 'https://maps.google.com/mapfiles/kml/paddle/blu-blank-lv.png';
-        var greenUrl = 'https://maps.google.com/mapfiles/kml/paddle/grn-blank-lv.png';
-        var iconColor = dir===0 ? blueUrl : greenUrl;  
+        dir = feature.getProperty('dir');
+        blueUrl = 'https://maps.google.com/mapfiles/kml/paddle/blu-blank-lv.png';
+        greenUrl = 'https://maps.google.com/mapfiles/kml/paddle/grn-blank-lv.png';
+        iconColor = dir===0 ? blueUrl : greenUrl;  
         return({
-        icon: iconColor,
-        clickable: true
+          icon: iconColor,
+          clickable: true
         });
       });
       $scope.map.addListener('zoom_changed', function() {
@@ -159,11 +160,11 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
     stopLayer.addListener('click', function(event) {
     //Waits for user to click on a stop and calls triMet arrivals API for info on
     //selected stop.
-    var stopID = event.feature.getProperty("stop_id");
-    var stopName = event.feature.getProperty("stop_name");
-    var stopRouteServed = event.feature.getProperty("rte");  
+    stopID = event.feature.getProperty("stop_id");
+    stopName = event.feature.getProperty("stop_name");
+    stopRouteServed = event.feature.getProperty("rte");  
     infowindow.setPosition(event.latLng);
-    var response = trimetStopAPI(stopRouteServed, stopID, stopName);   
+    response = trimetStopAPI(stopRouteServed, stopID, stopName);   
     });
   }; 
 
@@ -172,10 +173,10 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
   Output: An array containing objects: lat/long, vehicle ID, timestamp, direction, 
   and verbose route information.
   Input: Route number from user selection from search. */
-  
-  var url = "https://developer.trimet.org/ws/v2/vehicles/appID="; 
-  var dataOut = [];
-  var innerData;
+  var url, dataOut, innerData, dataPacket;
+  url = "https://developer.trimet.org/ws/v2/vehicles/appID="; 
+  dataOut = [];
+  innerData;
   $.post(url + passAPPID, function(data) {
     data = data.resultSet.vehicle;
     $.each(data, function(outerIndex, outerValue) { // Key into the inner JSON
@@ -183,16 +184,16 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
         $.each(innerData, function(innerIndex, innerValue) {
           if (innerIndex === "routeNumber" && 
               innerValue === Number(passRouteInput)) { 
-            var dataPacket = {
-              latitude : innerData.latitude,       
-              longitude : innerData.longitude,     
-              vehicleID : innerData.vehicleID,     
-              time : innerData.time,          
-              direction : innerData.direction,      
-              signMessageLong : innerData.signMessageLong 
-            };
-            dataOut.push(dataPacket);
-            displayMarkers(dataOut);
+              dataPacket = {
+                latitude : innerData.latitude,       
+                longitude : innerData.longitude,     
+                vehicleID : innerData.vehicleID,     
+                time : innerData.time,          
+                direction : innerData.direction,      
+                signMessageLong : innerData.signMessageLong 
+              };
+              dataOut.push(dataPacket);
+              displayMarkers(dataOut);
           } 
         });
       });
@@ -205,21 +206,17 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
            vehicle ID, timestamp, direction, and verbose route information.
     Output: A blue marker on the google map canvas if direction = 0; 
             A green marker on the google map canvas if direction = 1. */
-      var markerData = dataIn;
-      
-      
-
+      var markerData, marker, position, icon;
+      markerData = dataIn;
       for( var i = 0; i < markerData.length; i++ ) {     
-        var marker = new google.maps.Marker();
-        var position = new google.maps.LatLng(
+        marker = new google.maps.Marker();
+        position = new google.maps.LatLng(
                                     markerData[i].latitude, 
                                     markerData[i].longitude
-                                    );
-        if (markerData[i].direction === 0) { 
-          var icon = "http://maps.google.com/mapfiles/ms/icons/blue-dot.png";       
-        } else {
-          icon = "http://maps.google.com/mapfiles/ms/icons/green-dot.png";
-        };
+                                    );         
+        var blueIcon = "http://maps.google.com/mapfiles/ms/icons/blue-dot.png";       
+        var greenIcon = "http://maps.google.com/mapfiles/ms/icons/green-dot.png";
+        icon = markerData[i].direction===0 ? blueIcon : greenIcon;
         marker.setOptions({
           icon: icon,
           position: position,
