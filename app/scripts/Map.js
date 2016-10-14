@@ -206,32 +206,29 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
     Output: A blue marker on the google map canvas if direction = 0; 
             A green marker on the google map canvas if direction = 1. */
       var markerData = dataIn;
-      for( var i = 0; i < markerData.length; i++ ) {
-        var position = new google.maps.LatLng(
-                                              markerData[i].latitude, 
-                                              markerData[i].longitude
-                                              );
-        //console.log(position);
-        if (markerData[i].direction === 0) { 
-          var marker = new google.maps.Marker({
-              icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png",
-              position: position,
-              map: $scope.map,
-              animation: google.maps.Animation.DROP,
-              clickable: true,
-              zIndex: 999 // places markers above stop icons.
-          });
-        } else {
-              marker = new google.maps.Marker({
-              icon: "http://maps.google.com/mapfiles/ms/icons/green-dot.png",
-              position: position,
-              map: $scope.map,
-              animation: google.maps.Animation.DROP,
-              clickable: true,
-              zindex: 999
-          });
-          }
+      
+      
 
+      for( var i = 0; i < markerData.length; i++ ) {     
+        var marker = new google.maps.Marker();
+        var position = new google.maps.LatLng(
+                                    markerData[i].latitude, 
+                                    markerData[i].longitude
+                                    );
+        if (markerData[i].direction === 0) { 
+          var icon = "http://maps.google.com/mapfiles/ms/icons/blue-dot.png";       
+        } else {
+          icon = "http://maps.google.com/mapfiles/ms/icons/green-dot.png";
+        };
+        marker.setOptions({
+          icon: icon,
+          position: position,
+          map: $scope.map,
+          animation: google.maps.Animation.DROP,
+          clickable: true,
+          zIndex: 999 // places markers above stop icons.
+        });
+                 
           //TODO: Make Unix time conversion its own function
           var date = new Date(markerData[i].time);
           if (date.getHours() > 12) { 
@@ -242,11 +239,9 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
           var minutes = "0" + date.getMinutes();
           var logTime = hours + ":" + minutes.substr(-2);
         
-
         var infoContent = ('<h5><p> Vehicle Number: ' + String(markerData[i].vehicleID) + 
             '</br>' + '<p>' + String(markerData[i].signMessageLong) + '</br>'
-            +'<h6><p> This position was logged at: ' + logTime + '</br></h6>' 
-            
+            +'<h6><p> This position was logged at: ' + logTime + '</br></h6>'             
             );
         marker.info = new google.maps.InfoWindow({
           content: infoContent
@@ -259,7 +254,7 @@ angular.module('trimappApp.map', []).controller('mapCtrl',[
           $scope.map.setZoom(15);
           this.info.open($scope.map, this);
         });  
-      }
+      };
     },
 
   trimetStopAPI = function(passStopRouteServed, passStopInput, passStopName) {
